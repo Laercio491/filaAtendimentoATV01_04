@@ -2,50 +2,60 @@
 const minhaFila = new Fila(5);
 
 function adicionarElemento() {
-  const novoElemento = document.getElementById("txtnovoNome");
-  if (minhaFila.enqueue(novoElemento.value)) {
+  const nome = document.getElementById("txtnovoNome");
+  const cpf = document.getElementById("txtnovoCPF");
+  const data = obterDataAtual();
+  const hora = obterHoraAtual();
+  const novoElemento = new Atendimento(nome.value, cpf.value, data, hora);
+
+  if (minhaFila.enqueue(novoElemento)) {
     mostrarFila(); // mostrar a fila
-    novoElemento.value=""; // clear input
-    novoElemento.focus();
+    nome.value = ""; // clear input
+    cpf.value = ""; // clear input
+    nome.focus();
   } else {
     alert("Fila cheia!");
   }
 }
 
-  function mostrarFila(){
-    const filaElemento = document.getElementById("listFila");
-    filaElemento.innerHTML="";
-    for(let item of minhaFila){
-      const listItem = document.createElement("li");
-      listItem.textContent = item;
-      filaElemento.appendChild(listItem);
-    }
+function mostrarFila() {
+  const filaElemento = document.getElementById("listFila");
+  filaElemento.innerHTML = "";
+  for (let item of minhaFila) {
+    const listItem = document.createElement("li");
+    listItem.textContent = item;
+    filaElemento.appendChild(listItem);
+  }
+}
+
+function removerElemento() {
+  let removido = minhaFila.dequeue();
+  if (removido === null)
+    alert("Fila vazia");
+  else {
+    alert("Atendido:" + removido);
+    mostrarFila();
   }
 
-    function removerElemento(){
-      let removido = minhaFila.dequeue();
-      if(removido===null)
-        alert("Fila vazia");
-      else{
-        alert("Atendido:"+removido);
-        mostrarFila();
-      }
+}
 
+function buscarElemento() {
+  const busca = document.getElementById("txtnovoCPF");
+  let cont=0;
+  let encontrado = false;
+  for (let atendimento of minhaFila) {
+    cont++;
+    if (busca.value === atendimento.cpf) {
+      encontrado = true;
+    }
+  }
+  if (!encontrado) {
+    alert("Pessoa não está na fila");
+  } else {
+    alert("Encontrado na fila, posição: "+cont);
   }
 
-  function buscarElemento(){
-    const busca = document.getElementById("txtnovoNome");
-    let encontrado = false;
-    for(let item of minhaFila){
-       if(busca.value=== item){
-        alert("Encontrado na fila");
-        encontrado = true;
-       }
-    }
-    if(!encontrado)
-      alert("Pessoa não está na fila");
-
-  }// fim funcao busca
+}// fim funcao busca
 
 
 

@@ -1,29 +1,49 @@
 class Atendimento {
     #Nome;
     #CPF;
-    #DTAtendimento;
-    #HRAtendimento;
+    #Data;
+    #Hora;
 
-    constructor(Nome, Cpf, dtAten, hrAten) {
+    constructor(Nome, Cpf, data, hora) {
         this.#Nome = Nome;
         this.#CPF = Cpf;
-        this.#DTAtendimento = dtAten;
-        this.#HRAtendimento = hrAten;
+        this.#Data = data;
+        this.#Hora = hora;
     }
 
-    getNome() {
+    get nome() {
         return this.#Nome;
     }
 
-    getCPF() {
+    get cpf() {
         return this.#CPF;
     }
 
-    getData() {
-        return this.#DTAtendimento;
+    get data() {
+        return this.#Data;
     }
 
-    getHora() {
-        return this.#HRAtendimento;
+    get hora() {
+        return this.#Hora;
     }
+
+    set nome(nome) {
+        this.#Nome = nome;
+    }
+    set cpf(cpf) {
+        this.#CPF = cpf;
+    }
+    set data(data) {
+        this.#Data = data;
+    }
+    set hora(hora) {
+        this.#Hora = hora;
+    }
+    toString() {
+        return (
+            this.#Nome + " | " + this.#CPF + " | " + this.#Data + " | " + this.#Hora
+        );
+
+    }
+
 }
