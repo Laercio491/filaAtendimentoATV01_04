@@ -1,6 +1,5 @@
 
 const minhaFila = new Fila(5);
-
 function adicionarElemento() {
   const nome = document.getElementById("txtnovoNome");
   const cpf = document.getElementById("txtnovoCPF");
@@ -30,10 +29,12 @@ function mostrarFila() {
 
 function removerElemento() {
   let removido = minhaFila.dequeue();
+  let msg = document.getElementById("mensagem-remocao");
+  localStorage.setItem('ultimoAtendido', removido.nome);
   if (removido === null)
     alert("Fila vazia");
   else {
-    alert("Atendido:" + removido);
+    msg.innerHTML="Atendendo: "+removido.nome+", hora de entrada: "+removido.hora+" Hora de atendimento"+obterHoraAtual()+" Ficou "+calcularDiferencaHoras(removido.hora,obterHoraAtual());
     mostrarFila();
   }
 
